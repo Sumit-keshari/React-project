@@ -1,24 +1,19 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
-import Compo from "./components/compo";
+import React from 'react'
 
-function App() {
+function MyButton() {
   const [count, setCount] = useState(0);
-  // let obj={
-  //   name:"sumit",
-  //   age:25
-  // }
-  // let arr=[1,2,3]
-
+  function handleClick() {
+    setCount(count + 1);
+  }
+}
+function App() {
   return (
-    <>
-      <h1 className="bg-red-600 text-white rounded-xl">Tailwind test</h1>
-      <Compo channel="sumit" test="this is file" />
-      <Compo btnTest="button" price="48,000" />
-    </>
-  );
+    <div>
+      <h1>Counters that update together</h1>
+      <MyButton count={count} onClick={handleClick} />
+      <MyButton count={count} onClick={handleClick} />
+    </div>
+  )
 }
 
-export default App;
+export default App

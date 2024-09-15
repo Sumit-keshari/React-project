@@ -1,4 +1,5 @@
-import { useCallback, useState } from "react";
+import { useEffect } from "react";
+import { useCallback, useState ,useRef } from "react";
 
 function App() {
   const [length, setLength] = useState(8);
@@ -19,6 +20,17 @@ function App() {
     setPassword(pass);
   }, [length, numberAllowed, charAllowed]);
 
+  useEffect(() => {
+    passwordGenerator();
+  }, [length, numberAllowed, charAllowed, passwordGenerator]);
+  
+  const passwordInputRef = useRef("");
+
+  const handleCopy = () => {
+    passwordInputRef.current.select();
+    navigator.clipboard.writeText(password);
+  };
+
   const handleLengthChange = (e) => {
     setLength(parseInt(e.target.value));
     passwordGenerator();
@@ -34,9 +46,6 @@ function App() {
     passwordGenerator();
   };
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(password);
-  };
 
   return (
     <>
@@ -49,6 +58,7 @@ function App() {
             type="text"
             value={password}
             className="outline-none w-full py-1 px-3 my-2 rounded-l-lg"
+            ref={passwordInputRef}
             placeholder="password"
             readOnly
           />
@@ -78,16 +88,20 @@ function App() {
             <input
               type="checkbox"
               checked={numberAllowed}
+              id="numberInput"
+              // onChange={setNumberAllowed((prev) => !prev)}
               onChange={handleNumberChange}
             />
-            <label>Numbers</label>
+            <label htmlFor="numberInput">Numbers</label>
 
             <input
               type="checkbox"
               checked={charAllowed}
+              id="charInput"
+              // onChange={setCharAllowed((prev) => !prev)}
               onChange={handleCharChange}
             />
-            <label>Special Characters</label>
+            <label htmlFor="charInput">Special Characters</label>
           </div>
         </div>
       </div>
