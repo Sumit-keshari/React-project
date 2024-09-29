@@ -25,7 +25,6 @@ function App() {
   }, [length, numberAllowed, charAllowed, passwordGenerator]);
   
   const passwordInputRef = useRef("");
-
   const handleCopy = () => {
     passwordInputRef.current.select();
     navigator.clipboard.writeText(password);
